@@ -3,145 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fashion Hub | Shop</title>
+    <title>Fredwear | Premium Athleisure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* CSS: Clean Modern Aesthetic */
-        :root { --black: #111; --gray: #f4f4f4; --accent: #ff3f6c; }
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; margin: 0; background: white; color: var(--black); }
-        
-        /* Header & Search Bar */
-        header { position: sticky; top: 0; background: white; border-bottom: 1px solid #ddd; z-index: 1000; padding: 10px 5%; display: flex; align-items: center; justify-content: space-between; }
-        .logo { font-size: 24px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
-        .search-container { flex: 1; margin: 0 20px; position: relative; }
-        #searchBar { width: 100%; padding: 10px 15px; border: 1px solid #ccc; border-radius: 4px; background: var(--gray); }
-
-        /* Cart Icon & Badge */
-        .cart-icon-container { position: relative; cursor: pointer; font-size: 24px; }
-        .cart-badge { position: absolute; top: -5px; right: -10px; background: var(--accent); color: white; font-size: 12px; padding: 2px 6px; border-radius: 50%; font-weight: bold; }
-
-        /* Product Grid */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; padding: 20px 5%; }
-        .card { background: white; border: 1px solid #eee; padding-bottom: 10px; transition: 0.3s; }
-        .card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .card img { width: 100%; height: 250px; object-fit: cover; }
-        .card-info { padding: 10px; text-align: center; }
-        .price { font-weight: bold; color: var(--accent); margin: 5px 0; }
-        .add-btn { background: var(--black); color: white; border: none; width: 90%; padding: 8px; cursor: pointer; text-transform: uppercase; font-size: 12px; }
-
-        /* Cart Sidebar (Drawer) */
-        #cartSidebar { position: fixed; right: -400px; top: 0; width: 350px; height: 100%; background: white; box-shadow: -5px 0 15px rgba(0,0,0,0.2); transition: 0.4s; z-index: 2000; padding: 20px; display: flex; flex-direction: column; }
-        #cartSidebar.active { right: 0; }
-        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .cart-items-list { flex: 1; overflow-y: auto; margin-top: 10px; }
-        .cart-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; }
-        .checkout-box { border-top: 2px solid var(--black); padding-top: 15px; }
-        .total-row { display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; margin-bottom: 15px; }
+        .cart-badge { font-size: 0.7rem; top: -5px; right: -10px; }
+        .product-card:hover { transform: translateY(-5px); transition: 0.3s; }
     </style>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-900">
 
-<header>
-    <div class="logo">FASHION</div>
-    <div class="search-container">
-        <input type="text" id="searchBar" placeholder="Search for dresses, shirts, accessories..." onkeyup="filterItems()">
-    </div>
-    <div class="cart-icon-container" onclick="toggleCart()">
-        🛒 <span class="cart-badge" id="cartCount">0</span>
-    </div>
-</header>
-
-<div class="grid" id="productGrid">
-    </div>
-
-<div id="cartSidebar">
-    <div class="cart-header">
-        <h2>Your Bag</h2>
-        <button onclick="toggleCart()" style="background:none; border:none; font-size:20px; cursor:pointer;">✕</button>
-    </div>
-    <div class="cart-items-list" id="cartList">
-        </div>
-    <div class="checkout-box">
-        <div class="total-row">
-            <span>Total:</span>
-            <span>R<span id="cartTotal">0.00</span></span>
-        </div>
-        <button class="add-btn" style="padding:15px; font-size:16px;" onclick="whatsappCheckout()">Proceed to Checkout</button>
-    </div>
-</div>
-
-<script>
-    // 1. Data Structure (Add your items here)
-    const products = [
-        { id: 1, name: "Summer Floral Dress", price: 350, img: "https://picsum.photos/seed/dress/200/300" },
-        { id: 2, name: "Urban Street Hoodie", price: 550, img: "https://picsum.photos/seed/hoodie/200/300" },
-        { id: 3, name: "Classic Blue Jeans", price: 420, img: "https://picsum.photos/seed/jeans/200/300" },
-        { id: 4, name: "Casual White Sneakers", price: 850, img: "https://picsum.photos/seed/shoes/200/300" },
-        { id: 5, name: "Gold Chain Necklace", price: 120, img: "https://picsum.photos/seed/gold/200/300" }
-    ];
-
-    let cart = [];
-
-    // 2. Load Products to Grid
-    function renderProducts(items) {
-        const grid = document.getElementById('productGrid');
-        grid.innerHTML = items.map(p => `
-            <div class="card">
-                <img src="${p.img}">
-                <div class="card-info">
-                    <div>${p.name}</div>
-                    <div class="price">R${p.price.toFixed(2)}</div>
-                    <button class="add-btn" onclick="addToCart(${p.id})">Add to Bag</button>
-                </div>
+    <nav class="bg-white shadow-md sticky top-0 z-50 p-4">
+        <div class="container mx-auto flex flex-wrap justify-between items-center">
+            <h1 class="text-2xl font-bold tracking-tighter text-black">FREDWEAR</h1>
+            
+            <div class="flex-1 mx-4 max-w-md">
+                <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search gymwear..." class="w-full border rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black">
             </div>
-        `).join('');
-    }
 
-    // 3. Search Filter Logic
-    function filterItems() {
-        const query = document.getElementById('searchBar').value.toLowerCase();
-        const filtered = products.filter(p => p.name.toLowerCase().includes(query));
-        renderProducts(filtered);
-    }
+            <div class="relative cursor-pointer" onclick="toggleCart()">
+                <i class="fa-solid border p-3 rounded-full fa-bag-shopping text-xl"></i>
+                <span id="cartCount" class="absolute bg-red-600 text-white rounded-full px-2 cart-badge">0</span>
+            </div>
+        </div>
 
-    // 4. Cart Logic
-    function addToCart(id) {
-        const product = products.find(p => p.id === id);
-        cart.push(product);
-        updateUI();
-    }
+        <div class="flex justify-center space-x-4 mt-4 overflow-x-auto pb-2 text-sm font-semibold uppercase">
+            <button onclick="filterCat('All')" class="hover:underline">All</button>
+            <button onclick="filterCat('T-shirts')" class="hover:underline">T-shirts</button>
+            <button onclick="filterCat('Leggings')" class="hover:underline">Leggings</button>
+            <button onclick="filterCat('Tops')" class="hover:underline">Tops</button>
+            <button onclick="filterCat('Sports Bras')" class="hover:underline">Sports Bras</button>
+            <button onclick="filterCat('Joggers')" class="hover:underline">Joggers</button>
+            <button onclick="filterCat('Hoodies')" class="hover:underline">Hoodies</button>
+            <button onclick="filterCat('Shorts')" class="hover:underline">Shorts</button>
+            <button onclick="filterCat('Yoga')" class="hover:underline">Yoga</button>
+        </div>
+    </nav>
 
-    function updateUI() {
-        // Update badge count
-        document.getElementById('cartCount').innerText = cart.length;
+    <main class="container mx-auto p-6">
+        <div id="productGrid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            </div>
+    </main>
 
-        // Update Cart Sidebar
-        const list = document.getElementById('cartList');
-        let total = 0;
-        list.innerHTML = cart.map((item, index) => {
-            total += item.price;
-            return `<div class="cart-item"><span>${item.name}</span><span>R${item.price.toFixed(2)}</span></div>`;
-        }).join('');
-        
-        document.getElementById('cartTotal').innerText = total.toFixed(2);
-    }
+    <div id="cartModal" class="fixed right-0 top-0 h-full w-80 bg-white shadow-2xl z-[60] p-6 hidden">
+        <div class="flex justify-between mb-6">
+            <h2 class="text-xl font-bold">Your Cart</h2>
+            <button onclick="toggleCart()" class="text-2xl">&times;</button>
+        </div>
+        <div id="cartItems" class="space-y-4 h-3/4 overflow-y-auto"></div>
+        <div class="border-t mt-4 pt-4">
+            <div class="flex justify-between font-bold text-lg">
+                <span>Total:</span>
+                <span id="cartTotal">R0.00</span>
+            </div>
+            <button onclick="checkout()" class="w-full bg-black text-white py-3 mt-4 hover:bg-gray-800 uppercase font-bold">Proceed to Payment</button>
+        </div>
+    </div>
 
-    function toggleCart() {
-        document.getElementById('cartSidebar').classList.toggle('active');
-    }
+    <script>
+        const products = [
+            { id: 1, name: "Core Compression Tee", price: 450, cat: "T-shirts", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400" },
+            { id: 2, name: "High-Waist Leggings", price: 600, cat: "Leggings", img: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=400" },
+            { id: 3, name: "Pro-Fit Tank", price: 350, cat: "Tops", img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400" },
+            // Add your 50 items following this pattern
+        ];
 
-    function whatsappCheckout() {
-        let total = document.getElementById('cartTotal').innerText;
-        let msg = "Order Request:%0A";
-        cart.forEach(i => msg += `- ${i.name} (R${i.price})%0A`);
-        msg += `%0A*TOTAL: R${total}*`;
-        
-        const phone = "27123456789"; // Replace with client number
-        window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
-    }
+        let cart = [];
 
-    // Initial Load
-    renderProducts(products);
-</script>
+        function renderProducts(items) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = items.map(p => `
+                <div class="product-card bg-white p-2 rounded shadow-sm border">
+                    <img src="${p.img}" class="w-full h-64 object-cover mb-4">
+                    <p class="text-xs text-gray-500">${p.cat}</p>
+                    <h3 class="font-bold">${p.name}</h3>
+                    <p class="text-gray-700 font-semibold">R${p.price.toFixed(2)}</p>
+                    <button onclick="addToCart(${p.id})" class="mt-2 w-full border border-black py-1 hover:bg-black hover:text-white transition">Add to Cart</button>
+                </div>
+            `).join('');
+        }
 
+        function addToCart(id) {
+            const item = products.find(p => p.id === id);
+            cart.push(item);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            document.getElementById('cartCount').innerText = cart.length;
+            const cartItems = document.getElementById('cartItems');
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            
+            cartItems.innerHTML = cart.map((item, index) => `
+                <div class="flex justify-between items-center text-sm">
+                    <span>${item.name}</span>
+                    <span>R${item.price} <button onclick="removeItem(${index})" class="text-red-500 ml-2">X</button></span>
+                </div>
+            `).join('');
+            document.getElementById('cartTotal').innerText = `R${total.toFixed(2)}`;
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function toggleCart() {
+            document.getElementById('cartModal').classList.toggle('hidden');
+        }
+
+        function filterCat(cat) {
+            if(cat === 'All') return renderProducts(products);
+            const filtered = products.filter(p => p.cat === cat);
+            renderProducts(filtered);
+        }
+
+        function searchProducts() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = products.filter(p => p.name.toLowerCase().includes(query));
+            renderProducts(filtered);
+        }
+
+        function checkout() {
+            const total = document.getElementById('cartTotal').innerText;
+            const message = `Hello Fredwear, I want to pay for items totalling ${total}`;
+            window.open(`https://wa.me/27793034760?text=${encodeURIComponent(message)}`);
+        }
+
+        renderProducts(products);
+    </script>
 </body>
 </html>
