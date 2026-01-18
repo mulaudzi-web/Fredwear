@@ -3,134 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fredwear | Premium Athleisure</title>
+    <title>FREDWEAR | Elite Performance</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .cart-badge { font-size: 0.7rem; top: -5px; right: -10px; }
-        .product-card:hover { transform: translateY(-5px); transition: 0.3s; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .cat-rect { transition: all 0.3s ease; border: 2px solid black; min-width: 140px; }
+        .cat-rect:hover, .cat-active { background: black; color: white; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900">
+<body class="bg-white">
 
-    <nav class="bg-white shadow-md sticky top-0 z-50 p-4">
-        <div class="container mx-auto flex flex-wrap justify-between items-center">
-            <h1 class="text-2xl font-bold tracking-tighter text-black">FREDWEAR</h1>
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-100">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-4xl font-black tracking-tighter">FREDWEAR</h1>
             
-            <div class="flex-1 mx-4 max-w-md">
-                <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search gymwear..." class="w-full border rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black">
+            <div class="hidden md:block flex-1 max-w-xl mx-10">
+                <input type="text" id="search" onkeyup="search()" placeholder="Search 150+ products..." class="w-full bg-gray-100 border-none rounded-sm px-4 py-3 focus:ring-2 focus:ring-black outline-none">
             </div>
 
-            <div class="relative cursor-pointer" onclick="toggleCart()">
-                <i class="fa-solid border p-3 rounded-full fa-bag-shopping text-xl"></i>
-                <span id="cartCount" class="absolute bg-red-600 text-white rounded-full px-2 cart-badge">0</span>
-            </div>
+            <button onclick="toggleCart()" class="relative p-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                <span id="cartCount" class="absolute top-0 right-0 bg-red-600 text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full font-bold">0</span>
+            </button>
         </div>
 
-        <div class="flex justify-center space-x-4 mt-4 overflow-x-auto pb-2 text-sm font-semibold uppercase">
-            <button onclick="filterCat('All')" class="hover:underline">All</button>
-            <button onclick="filterCat('T-shirts')" class="hover:underline">T-shirts</button>
-            <button onclick="filterCat('Leggings')" class="hover:underline">Leggings</button>
-            <button onclick="filterCat('Tops')" class="hover:underline">Tops</button>
-            <button onclick="filterCat('Sports Bras')" class="hover:underline">Sports Bras</button>
-            <button onclick="filterCat('Joggers')" class="hover:underline">Joggers</button>
-            <button onclick="filterCat('Hoodies')" class="hover:underline">Hoodies</button>
-            <button onclick="filterCat('Shorts')" class="hover:underline">Shorts</button>
-            <button onclick="filterCat('Yoga')" class="hover:underline">Yoga</button>
+        <div class="flex space-x-2 overflow-x-auto no-scrollbar px-4 pb-4">
+            <button onclick="filter('All')" class="cat-rect py-2 px-4 font-bold uppercase text-xs">All</button>
+            <button onclick="filter('T-shirts')" class="cat-rect py-2 px-4 font-bold uppercase text-xs">T-shirts</button>
+            <button onclick="filter('Leggings')" class="cat-rect py-2 px-4 font-bold uppercase text-xs">Leggings</button>
+            <button onclick="filter('Tops')" class="cat-rect py-2 px-4 font-bold uppercase text-xs">Tops</button>
+            <button onclick="filter('Sports Bras')" class="cat-rect py-2 px-4 font-bold uppercase text-xs">Sports Bras</button>
+            <button onclick="filter('Joggers')" class="cat-rect py-2 px-4 font-bold uppercase text-xs">Joggers</button>
+            <button onclick="filter('Compression')" class="cat-rect py-2 px-4 font-bold uppercase text-xs">Compression</button>
+            <button onclick="filter('Shorts')" class="cat-rect py-2 px-4 font-bold uppercase text-xs">Shorts</button>
+            <button onclick="filter('Hoodies')" class="cat-rect py-2 px-4 font-bold uppercase text-xs">Hoodies</button>
+            <button onclick="filter('Crossfit')" class="cat-rect py-2 px-4 font-bold uppercase text-xs">Crossfit</button>
+            <button onclick="filter('Powerlifting')" class="cat-rect py-2 px-4 font-bold uppercase text-xs">Powerlifting</button>
+            <button onclick="filter('Yoga')" class="cat-rect py-2 px-4 font-bold uppercase text-xs">Yoga</button>
+            <button onclick="filter('Jackets')" class="cat-rect py-2 px-4 font-bold uppercase text-xs">Jackets</button>
+            <button onclick="filter('Accessories')" class="cat-rect py-2 px-4 font-bold uppercase text-xs">Accessories</button>
+            <button onclick="filter('Recovery')" class="cat-rect py-2 px-4 font-bold uppercase text-xs">Recovery</button>
+            <button onclick="filter('Footwear')" class="cat-rect py-2 px-4 font-bold uppercase text-xs">Footwear</button>
         </div>
-    </nav>
+    </header>
 
-    <main class="container mx-auto p-6">
-        <div id="productGrid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            </div>
+    <main class="container mx-auto px-4 py-8">
+        <div id="grid" class="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-10"></div>
     </main>
 
-    <div id="cartModal" class="fixed right-0 top-0 h-full w-80 bg-white shadow-2xl z-[60] p-6 hidden">
-        <div class="flex justify-between mb-6">
-            <h2 class="text-xl font-bold">Your Cart</h2>
-            <button onclick="toggleCart()" class="text-2xl">&times;</button>
-        </div>
-        <div id="cartItems" class="space-y-4 h-3/4 overflow-y-auto"></div>
-        <div class="border-t mt-4 pt-4">
-            <div class="flex justify-between font-bold text-lg">
-                <span>Total:</span>
-                <span id="cartTotal">R0.00</span>
+    <div id="pView" class="fixed inset-0 bg-white z-[100] hidden overflow-y-auto">
+        <button onclick="closeView()" class="fixed top-6 right-6 text-4xl font-light">✕</button>
+        <div class="container mx-auto px-4 py-20 flex flex-col md:flex-row gap-12">
+            <div class="md:w-1/2"><img id="vImg" class="w-full aspect-[3/4] object-cover bg-gray-100"></div>
+            <div class="md:w-1/2">
+                <p id="vCat" class="text-gray-400 uppercase tracking-widest text-sm mb-2"></p>
+                <h2 id="vTitle" class="text-5xl font-black mb-4"></h2>
+                <p id="vPrice" class="text-2xl mb-8"></p>
+                
+                <div class="mb-8">
+                    <h4 class="font-bold mb-4 italic">SELECT SIZE</h4>
+                    <div class="flex gap-3">
+                        <button class="w-14 h-14 border-2 border-black flex items-center justify-center font-bold hover:bg-black hover:text-white">S</button>
+                        <button class="w-14 h-14 border-2 border-black flex items-center justify-center font-bold hover:bg-black hover:text-white">M</button>
+                        <button class="w-14 h-14 border-2 border-black flex items-center justify-center font-bold hover:bg-black hover:text-white">L</button>
+                        <button class="w-14 h-14 border-2 border-black flex items-center justify-center font-bold hover:bg-black hover:text-white">XL</button>
+                    </div>
+                </div>
+
+                <button id="vAdd" class="w-full bg-black text-white py-5 text-xl font-bold hover:bg-gray-800 transition">ADD TO CART</button>
+                <div class="mt-10 border-t pt-6 text-gray-600 leading-relaxed">
+                    <p>• Premium moisture-wicking fabric<br>• Reinforced stitching for heavy lifting<br>• Breathable athletic fit</p>
+                </div>
             </div>
-            <button onclick="checkout()" class="w-full bg-black text-white py-3 mt-4 hover:bg-gray-800 uppercase font-bold">Proceed to Payment</button>
+        </div>
+    </div>
+
+    <div id="cart" class="fixed right-0 top-0 h-full w-full md:w-[450px] bg-white shadow-2xl z-[110] p-8 translate-x-full transition-transform">
+        <div class="flex justify-between items-center mb-10">
+            <h2 class="text-3xl font-black">YOUR BAG</h2>
+            <button onclick="toggleCart()" class="text-2xl">✕</button>
+        </div>
+        <div id="cItems" class="space-y-6 h-[60vh] overflow-y-auto"></div>
+        <div class="absolute bottom-0 left-0 w-full p-8 border-t bg-white">
+            <div class="flex justify-between text-2xl font-black mb-6">
+                <span>TOTAL</span>
+                <span id="cTotal">R0.00</span>
+            </div>
+            <button onclick="checkout()" class="w-full bg-black text-white py-5 font-bold text-lg uppercase tracking-widest">Proceed to Payment</button>
         </div>
     </div>
 
     <script>
-        const products = [
-            { id: 1, name: "Core Compression Tee", price: 450, cat: "T-shirts", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400" },
-            { id: 2, name: "High-Waist Leggings", price: 600, cat: "Leggings", img: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=400" },
-            { id: 3, name: "Pro-Fit Tank", price: 350, cat: "Tops", img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400" },
-            // Add your 50 items following this pattern
-        ];
+        // Generating 150 items with diverse categories
+        const cats = ["T-shirts", "Leggings", "Tops", "Sports Bras", "Joggers", "Compression", "Shorts", "Hoodies", "Crossfit", "Powerlifting", "Yoga", "Jackets", "Accessories", "Recovery", "Footwear"];
+        const products = Array.from({ length: 150 }, (_, i) => ({
+            id: i,
+            name: `${cats[i % cats.length]} Elite V${i+1}`,
+            price: Math.floor(Math.random() * 800) + 299,
+            cat: cats[i % cats.length],
+            img: `https://picsum.photos/seed/${i+100}/800/1000`
+        }));
 
         let cart = [];
 
-        function renderProducts(items) {
-            const grid = document.getElementById('productGrid');
-            grid.innerHTML = items.map(p => `
-                <div class="product-card bg-white p-2 rounded shadow-sm border">
-                    <img src="${p.img}" class="w-full h-64 object-cover mb-4">
-                    <p class="text-xs text-gray-500">${p.cat}</p>
-                    <h3 class="font-bold">${p.name}</h3>
-                    <p class="text-gray-700 font-semibold">R${p.price.toFixed(2)}</p>
-                    <button onclick="addToCart(${p.id})" class="mt-2 w-full border border-black py-1 hover:bg-black hover:text-white transition">Add to Cart</button>
+        function render(arr) {
+            document.getElementById('grid').innerHTML = arr.map(p => `
+                <div class="group cursor-pointer" onclick="view(${p.id})">
+                    <div class="relative aspect-[3/4] overflow-hidden bg-gray-100 mb-4">
+                        <img src="${p.img}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                        <button class="absolute bottom-0 left-0 w-full bg-black text-white py-3 font-bold translate-y-full group-hover:translate-y-0 transition">QUICK VIEW</button>
+                    </div>
+                    <h3 class="font-bold text-lg uppercase">${p.name}</h3>
+                    <p class="text-gray-500 text-sm">${p.cat}</p>
+                    <p class="font-bold mt-2">R${p.price.toFixed(2)}</p>
                 </div>
             `).join('');
         }
 
-        function addToCart(id) {
-            const item = products.find(p => p.id === id);
-            cart.push(item);
-            updateCartUI();
+        function view(id) {
+            const p = products.find(x => x.id === id);
+            document.getElementById('vImg').src = p.img;
+            document.getElementById('vTitle').innerText = p.name;
+            document.getElementById('vCat').innerText = p.cat;
+            document.getElementById('vPrice').innerText = `R${p.price.toFixed(2)}`;
+            document.getElementById('vAdd').onclick = () => { add(p.id); closeView(); };
+            document.getElementById('pView').classList.remove('hidden');
         }
 
-        function updateCartUI() {
+        function closeView() { document.getElementById('pView').classList.add('hidden'); }
+        function add(id) { cart.push(products.find(x => x.id === id)); updateCart(); }
+        function toggleCart() { document.getElementById('cart').classList.toggle('translate-x-full'); }
+        function filter(c) { c === 'All' ? render(products) : render(products.filter(p => p.cat === c)); }
+        function search() {
+            const q = document.getElementById('search').value.toLowerCase();
+            render(products.filter(p => p.name.toLowerCase().includes(q)));
+        }
+
+        function updateCart() {
             document.getElementById('cartCount').innerText = cart.length;
-            const cartItems = document.getElementById('cartItems');
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            
-            cartItems.innerHTML = cart.map((item, index) => `
-                <div class="flex justify-between items-center text-sm">
-                    <span>${item.name}</span>
-                    <span>R${item.price} <button onclick="removeItem(${index})" class="text-red-500 ml-2">X</button></span>
+            const total = cart.reduce((s, i) => s + i.price, 0);
+            document.getElementById('cItems').innerHTML = cart.map((item, idx) => `
+                <div class="flex gap-4 border-b pb-4">
+                    <img src="${item.img}" class="w-20 h-24 object-cover">
+                    <div class="flex-1">
+                        <h4 class="font-bold uppercase text-sm">${item.name}</h4>
+                        <p class="font-bold mt-1">R${item.price}</p>
+                        <button onclick="cart.splice(${idx},1);updateCart()" class="text-xs text-red-500 mt-2 underline">Remove</button>
+                    </div>
                 </div>
             `).join('');
-            document.getElementById('cartTotal').innerText = `R${total.toFixed(2)}`;
-        }
-
-        function removeItem(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
-
-        function toggleCart() {
-            document.getElementById('cartModal').classList.toggle('hidden');
-        }
-
-        function filterCat(cat) {
-            if(cat === 'All') return renderProducts(products);
-            const filtered = products.filter(p => p.cat === cat);
-            renderProducts(filtered);
-        }
-
-        function searchProducts() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = products.filter(p => p.name.toLowerCase().includes(query));
-            renderProducts(filtered);
+            document.getElementById('cTotal').innerText = `R${total.toFixed(2)}`;
         }
 
         function checkout() {
-            const total = document.getElementById('cartTotal').innerText;
-            const message = `Hello Fredwear, I want to pay for items totalling ${total}`;
-            window.open(`https://wa.me/27793034760?text=${encodeURIComponent(message)}`);
+            const total = document.getElementById('cTotal').innerText;
+            window.open(`https://wa.me/27793034760?text=I'd like to checkout from Fredwear. Total: ${total}`);
         }
 
-        renderProducts(products);
+        render(products);
     </script>
 </body>
 </html>
